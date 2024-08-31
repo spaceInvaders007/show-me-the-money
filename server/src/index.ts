@@ -10,7 +10,7 @@ app.use(cors());
 app.get("/balance-sheet", async (req, res) => {
   try {
     const response = await axios.get(
-      "http://localhost:3000/api.xro/2.0/Reports/BalanceSheet"
+      "http://mock-xero-api:3000/api.xro/2.0/Reports/BalanceSheet"
     );
     res.json(response.data);
   } catch (error) {
