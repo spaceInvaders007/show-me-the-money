@@ -8,9 +8,10 @@ const PORT = 3001;
 app.use(cors());
 
 app.get("/balance-sheet", async (req, res) => {
+  const apiUrl = process.env.API_URL || "http://localhost:3000";
   try {
     const response = await axios.get(
-      "http://mock-xero-api:3000/api.xro/2.0/Reports/BalanceSheet"
+      `${apiUrl}/api.xro/2.0/Reports/BalanceSheet`
     );
     res.json(response.data);
   } catch (error) {
@@ -19,8 +20,10 @@ app.get("/balance-sheet", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+}
 
 export default app;
